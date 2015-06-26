@@ -1,0 +1,34 @@
+import pygame
+import time
+import RPi.GPIO as GPIO
+
+GPIO.setmode (GPIO.BCM)
+
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(24, GPIO.OUT)
+GPIO.setup(17, GPIO.IN)
+GPIO.setup(18, GPIO.IN)
+
+pygame.init()
+
+print("press button")
+GPIO.output(23, False)
+GPIO.output(24, False)
+
+try : 
+	while True : 
+
+		if GPIO.input(17)==0:
+			pygame.mixer.music.load("aa.wav")
+			pygame.mixer.music.play()
+			GPIO.output(23, True)
+			GPIO.output(24, True)
+
+		if GPIO.input(18)==0:
+			pygame.mixer.music.load("bb.wav")
+			pygame.mixer.music.play()
+			GPIO.output(23, False)
+			GPIO.output(24, False)
+
+except KeyboardInterrupt:
+	GPIO.cleanup()
